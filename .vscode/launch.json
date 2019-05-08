@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - RoundRobinJava",
+            "request": "launch",
+            "mainClass": "roundrobinjava.RoundRobinJava",
+            "projectName": "RoundRobinJava_9fc59b12",
+            "console": "integratedTerminal"
+        },
+        {
+            "type": "java",
+            "name": "Debug (Launch)",
+            "request": "launch",
+            "mainClass": ""
+        }
+    ]
+}
