@@ -5,8 +5,15 @@
             "name": "CodeLens (Launch) - RoundRobinJava",
             "request": "launch",
             "mainClass": "roundrobinjava.RoundRobinJava",
+            "console": "externalTerminal"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - RoundRobinJava",
+            "request": "launch",
+            "mainClass": "roundrobinjava.RoundRobinJava",
             "projectName": "RoundRobinJava_9fc59b12",
-            "console": "integratedTerminal"
+            "console": "externalTerminal"
         },
         {
             "type": "java",
