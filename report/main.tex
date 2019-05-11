@@ -1,0 +1,185 @@
+\documentclass[12pt]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{image/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{listings}
+\usepackage{color}
+
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+
+\usepackage{listings}
+\usepackage{color}
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+\title{Round Robin}								% Title
+\author{Maharaj Faawwaz A Yusran\\ Ayu Nabilah Binti Rozani\\ Nur Hajidah Iffah Binti Abdul Rahim\\ Subhashini Kannan}								% Author
+\date{\today}											% Date
+
+\makeatletter
+\let\thetitle\@title
+\let\theauthor\@author
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+%\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+	\centering
+    \vspace*{0.5 cm}
+    \includegraphics[scale = 0.25]{logoumt.png}\\[1.0 cm]	% University Logo
+    \textsc{\LARGE University Malaysia Terengganu}\\[1.0 cm]	% University Name
+	\textsc{\Large CSF3305}\\[0.4 cm]				% Course Code
+	\textsc{\large Operating System}\\[0.6 cm]				% Course Name
+	\rule{\linewidth}{0.2 mm} \\[0.4 cm]
+	{ \huge \bfseries \thetitle}\\
+	\rule{\linewidth}{0.2 mm} \\[1.5 cm]
+	
+	\begin{minipage}{0.75\textwidth}
+		\begin{flushleft} \large
+			\emph{Author:}\\
+			\theauthor
+			\end{flushleft}
+			\end{minipage}~
+			\begin{minipage}{0.3\textwidth}
+			\begin{flushleft} \large
+			\emph{Matric Number:} \\
+			       S52500\newline
+			       S51356\newline
+						 S50947\newline
+						 S52014\newline % Your Student Number
+		\end{flushleft}
+	\end{minipage}\\[3 cm]
+ 
+	\vfill
+	
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\tableofcontents
+\pagebreak
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction} 
+An operating system needs a \textit{program scheduler} to schedule processes to
+run on the computer. There are three types of schedulers: long term,
+mid-term and short term. Moreover, an operating system uses two types
+of scheduling process executions which are preemptive and non-preemptive. In
+preemptive scheduling policy, a low priority process has to be suspended during
+its execution if a higher priority process is waiting in the same queue for its
+execution. In non-preemptive scheduling policy, processes are executed in
+first come first serve basis, which means the next process is executed only when
+the current running process finishes its execution.
+
+There are a variety of ways to schedule processes that should run on the
+computer, called scheduling algorithms. These scheduling algorithms are: First
+Come First Serve (FCFS), Priority-based Scheduling, Shortest Job First (SJF),
+Longest Job First (LJF), Shortest Remaining Time First (SRTF), Highest Response
+Ratio Next and last but not least, the chosen topic of discussion: Round Robin
+(RR).
+
+To measure the performance of the algorithms, there are two main variables are
+taken into account: \textit{turnaround time} and \textit{waiting time}, that are
+calculated based on each process's \textit{arrival}, {burst} and
+\textit{completion} time.
+
+\textbf{Arrival time} is time at which the process arrives in the ready queue.
+Completion time is time at which process complete its execution.
+
+\textbf{Completion time} is time at which process complete its execution. 
+
+\textbf{Burst time} is time required by a process for CPU execution.
+
+To calculate \textit{turnaround time} and \textit{waiting time}, the following
+formulas are used:
+
+\[ Turn Around Time = Completion Time - Arrival Time \]
+
+\[ Waiting Time = Turn Around Time - Burst Time \]
+
+ \newpage 
+ \section{Description, Advantages and Disadvantages}
+
+The Round Robin scheduling is simple, easy to implement, and starvation-free as
+all processes get fair share of CPU. It is particularly effective in a
+general-purpose time-sharing system or transaction processing system. It is also
+one of the most commonly used technique in CPU scheduling as a core.
+
+The advantages of Round Robin scheduling is all the processes have the equal
+priority because of fixed time quantum. Starvation will never occur because each
+process in every Round Robin scheduling cycle will be schedule for a fixed time
+slice or time quantum.
+
+The disadvantages of it is more overhead of context switching. In the Round
+Robin scheduling algorithm, as the time quantum decreases context switching
+increases. The increases in time quantum value results in time starvation which
+may put many processes on hold. If the time quantum decreases, it will affect
+the CPU efficiency. So, time quantum should neither be large nor small. If time
+quantum becomes infinity, Round Robin scheduling algorithm gradually become
+\textit{First Come First Serve} (FCFS) scheduling algorithm.
+
+\newpage
+\section{Source Code}
+
+\begin{lstlisting}
+	// Hello.java
+	import javax.swing.JApplet;
+	import java.awt.Graphics;
+	
+	public class Hello extends JApplet {
+			public void paintComponent(Graphics g) {
+					g.drawString("Hello, world!", 65, 95);
+			}    
+	}
+	\end{lstlisting}
+
+\newpage
+\section{Output and Discussion}
+Present the outputs here.
+
+\newpage
+\section{Conclusion}
+Summarize your work.
+
+
+\newpage
+\bibliographystyle{plain}
+\bibliography{biblist}
+
+\end{document}
