@@ -44,6 +44,7 @@ public class RoundRobinJava {
         for (int i = 0; i < numberOfProcesses; i++) {
             System.out.println(displayProcessDetails(i, processes[i].getArrivalTime(), processes[i].getRmBurstTime()));
         }
+        System.out.println();
 
         // Store waiting and turnaround times
         int[] waitingTimes = new int[numberOfProcesses];
@@ -54,48 +55,57 @@ public class RoundRobinJava {
         while (time < totalTime) {
             // loop through each process, check arrival and burst
             for (int num = 0; num < processes.length; num++) {
-
                 // Check to see if the current process has arrived
                 if (processes[num].getArrivalTime() <= time) {
-
                     // Check that it still has remaining burst time
-                    if (processes[num].getRmBurstTime() > quantum) {
-
+                    if (processes[num].getRmBurstTime() >= quantum) {
                         // Check if the process is executed for the first time
                         // (burst time isn't decreased yet)
                         if (processes[num].getRmBurstTime() == processes[num].getBurstTime()) {
                             // If yes, store it
                             processes[num].setTimeArrivedInQueue(time);
                         }
-
-                        // Add process to order
+                        // Add process to timeline
                         printProcess(num);
 
                         // Decrease current process's burst time by quantum
                         processes[num].decreaseBurstTime(quantum);
 
-                        // Process finished, move on
-                        time += quantum;
-                    } else {
-                        // Last quantum for the process, plot finished time and
-                        // calculate waiting and turnaround time
-                        processes[num].setFinishedTime(time += quantum);
-                        waitingTimes[num] = processes[num].getWaitingTime();
-                        turnaroundTimes[num] = processes[num].getTurnaroundTime();
+                        if (processes[num].getRmBurstTime() == 0) {
+                            // No burst left, set completion time
+                            processes[num].setFinishedTime(time);
+                            // calculate waiting and turnaround time
+                            turnaroundTimes[num] = processes[num].getTurnaroundTime();
+                            waitingTimes[num] = processes[num].getWaitingTime();
+                        }
                     }
+                    // 1 burst finished, move on
+                    time += quantum;
                 }
             }
-
         }
 
-        // Display results
+        // Display output
         System.out.println("\n\nTotal time: " + totalTime + "s\n");
 
+        int totalWaiting = 0, totalTurnaround = 0;
+        // Display turnaround and waiting times
         System.out.println("Process Num\t| Arrival\t| Burst \t| Waiting time \t| Turnaround time");
         for (int i = 0; i < numberOfProcesses; i++) {
             System.out.println(displayProcessResults(i, processes[i].getArrivalTime(), processes[i].getBurstTime(),
                     waitingTimes[i], turnaroundTimes[i]));
+
+            // Also sum up the times, to calculate average
+            totalWaiting += waitingTimes[i];
+            totalTurnaround += turnaroundTimes[i];
         }
+
+        // Calculate and show the averages
+        double avgWaitingTime = totalWaiting / numberOfProcesses;
+        double avgTurnaroundTime = totalTurnaround / numberOfProcesses;
+        System.out.println();
+        System.out.printf("Average waiting time: %.2fs\n", avgWaitingTime);
+        System.out.printf("Average turnaround time: %.2fs\n", avgTurnaroundTime);
     }
 
     /**

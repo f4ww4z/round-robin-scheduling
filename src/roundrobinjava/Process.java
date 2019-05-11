@@ -9,6 +9,7 @@ public class Process {
         this.burstTime = burstTime;
         this.remainingBurstTime = burstTime;
         this.arrivalTime = arrivalTime;
+        this.finishedTime = 0;
     }
 
     public int getBurstTime() {
@@ -40,14 +41,19 @@ public class Process {
     }
 
     public void setFinishedTime(int finishedTime) {
-        this.finishedTime = finishedTime;
-    }
-
-    public int getWaitingTime() {
-        return getTurnaroundTime() - burstTime;
+        // only set the completion time if it's not already been set
+        if (this.finishedTime == 0) {
+            this.finishedTime = finishedTime;
+        }
     }
 
     public int getTurnaroundTime() {
+        // Using the formula
         return (int) Math.abs(finishedTime - timeArrivedInQueue);
+    }
+
+    public int getWaitingTime() {
+        // Using the formula
+        return getTurnaroundTime() - burstTime;
     }
 }

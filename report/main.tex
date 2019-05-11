@@ -157,7 +157,7 @@ quantum becomes infinity, Round Robin scheduling algorithm gradually become
 \newpage
 \section{Source Code}
 
-To understand the Round Robin scheduling algorithm, we have implemented a small
+To understand the Round Robin scheduling algorithm, we have made a small
 command-line project written in \textit{Java}.
 
 The Java application takes in a list of processes and their respective
@@ -173,54 +173,60 @@ an array of process objects later on in the main program. \textbf{Process.java} 
 \begin{lstlisting}
 public class Process {
 
-    private final int burstTime;
-    private int remainingBurstTime, arrivalTime, timeArrivedInQueue, finishedTime;
+	private final int burstTime;
+	private int remainingBurstTime, arrivalTime, timeArrivedInQueue, finishedTime;
 
-    public Process(int burstTime, int arrivalTime) {
-        this.burstTime = burstTime;
-        this.remainingBurstTime = burstTime;
-        this.arrivalTime = arrivalTime;
-    }
+	public Process(int burstTime, int arrivalTime) {
+			this.burstTime = burstTime;
+			this.remainingBurstTime = burstTime;
+			this.arrivalTime = arrivalTime;
+			this.finishedTime = 0;
+	}
 
-    public int getBurstTime() {
-        return burstTime;
-    }
+	public int getBurstTime() {
+			return burstTime;
+	}
 
-    public int getRmBurstTime() {
-        return remainingBurstTime;
-    }
+	public int getRmBurstTime() {
+			return remainingBurstTime;
+	}
 
-    public void setRmBurstTime(int burstTime) {
-        this.remainingBurstTime = burstTime;
-    }
+	public void setRmBurstTime(int burstTime) {
+			this.remainingBurstTime = burstTime;
+	}
 
-    public void decreaseBurstTime(int quantum) {
-        this.remainingBurstTime -= quantum;
-    }
+	public void decreaseBurstTime(int quantum) {
+			this.remainingBurstTime -= quantum;
+	}
 
-    public int getArrivalTime() {
-        return arrivalTime;
-    }
+	public int getArrivalTime() {
+			return arrivalTime;
+	}
 
-    public void setArrivalTime(int arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
+	public void setArrivalTime(int arrivalTime) {
+			this.arrivalTime = arrivalTime;
+	}
 
-    public void setTimeArrivedInQueue(int t) {
-        timeArrivedInQueue = t;
-    }
+	public void setTimeArrivedInQueue(int t) {
+			timeArrivedInQueue = t;
+	}
 
-    public void setFinishedTime(int finishedTime) {
-        this.finishedTime = finishedTime;
-    }
+	public void setFinishedTime(int finishedTime) {
+			// only set the completion time if it's not already been set
+			if (this.finishedTime == 0) {
+					this.finishedTime = finishedTime;
+			}
+	}
 
-    public int getWaitingTime() {
-        return getTurnaroundTime() - burstTime;
-    }
+	public int getTurnaroundTime() {
+			// Using the formula
+			return (int) Math.abs(finishedTime - timeArrivedInQueue);
+	}
 
-    public int getTurnaroundTime() {
-        return (int) Math.abs(finishedTime - timeArrivedInQueue);
-    }
+	public int getWaitingTime() {
+			// Using the formula
+			return getTurnaroundTime() - burstTime;
+	}
 }
 \end{lstlisting}
 
