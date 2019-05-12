@@ -101,8 +101,8 @@ public class RoundRobinJava {
         }
 
         // Calculate and show the averages
-        double avgWaitingTime = totalWaiting / numberOfProcesses;
-        double avgTurnaroundTime = totalTurnaround / numberOfProcesses;
+        double avgWaitingTime = (double) totalWaiting / numberOfProcesses;
+        double avgTurnaroundTime = (double) totalTurnaround / numberOfProcesses;
         System.out.println();
         System.out.printf("Average waiting time: %.2fs\n", avgWaitingTime);
         System.out.printf("Average turnaround time: %.2fs\n", avgTurnaroundTime);
