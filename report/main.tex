@@ -136,6 +136,8 @@ formulas are used:
  \newpage 
  \section{Definition, Advantages and Disadvantages}
 
+ \includegraphics[scale = 0.5]{round_robin.jpg}
+
 The Round Robin scheduling is simple, easy to implement, and starvation-free as
 all processes get fair share of CPU. It is particularly effective in a
 general-purpose time-sharing system or transaction processing system. It is also
@@ -370,29 +372,90 @@ public class RoundRobinJava {
 \newpage
 \section{Output and Discussion}
 
-For quantum = 1, here is an example of the output:
+\subsection{Same Arrival Time}
 
+Input:
+
+\begin{verbatim}
+	Number of processes = 4
+	quantum = 1
+	Arrival time = 0
+\end{verbatim}
+
+\includegraphics[scale = 0.5]{arrivaltime0_output.png}
+
+Based on the results above, we can see that the Round Robin scheduling is
+preemptive, assigning the CPU a part of a process's burst time for a fixed
+amount of time. The fixed amount of time may also be called \textit{time
+slice} or \textit{time quantum}. It is essentially a First Come First Serve
+algorithm, with a fixed \textit{time quantum}, and after the time quantum
+finishes, the assigned process is preempted and sent back to the queue. Each
+iteration, the process is moved up in the queue, and ready to be called again
+after 1 round (hence the name of the algorithm).
+
+With the same arrival time, the order that the processes are executed is
+circular, starting from P0 to P3 if there are 4 processes to run. When a process
+finishes its current time quantum, the remaining burst time is decreased. When
+the process does not have anymore remaning burst time (or the process is
+finished), the algorithm skips that process.
+
+The average waiting time for processes that have same arrival time is
+consistent. But also see that the order is heavily based on the time
+quantum. So if the processes have much higher burst time, it will lead to
+starvation because they have to wait longer.
+
+\subsection{Different Arrival Times}
+
+Input:
+
+\begin{verbatim}
+	Number of processes = 3
+	quantum = 1
+	Arrival time P0 = 0
+	Arrival time P1 = 2
+	Arrival time P2 = 1
+	Burst time P0 = 4
+	Burst time P1 = 3
+	Burst time P2 = 3
+\end{verbatim}
+
+\includegraphics[scale = 0.5]{quantum1_output.png}
+
+With different arrival times, the processes continue to circulate. At quantum =
+1, it skips P1 as P1 has not arrived to the queue. After completing 1 round,
+the flow restarts and the processor is assigned P0 again.
+
+The waiting times for the processes are consistent also, like the previous test.
 
 
 \newpage
 \section{Conclusion}
-Summarize your work.
+To sum up, in Round Robin Scheduling the time quantum is fixed and then
+processes are scheduled such that no process get CPU time more than one time
+quantum in one go. If time quantum is too large, the response time of the
+processes gets way higher, which may not be tolerated in interactive
+environment, and it will become a FCFS scheduling instead. If the
+time quantum is too small, it causes too many context switching, leading to more
+overhead. Overall, Round Robin algorithm is best used in time-sharing systems
+and interactive systems.
 
 
 \newpage
 \bibliographystyle{plain}
 \bibliography{biblist}
-
-Tutorialspoint.com (2019). Tutorials Point: Operating System Scheduling
-algorithms. Retrieved 12 May, 2019, from https://www.tutorialspoint.com
+Tutorialspoint.com (2019). Operating System Scheduling
+algorithms. Retrieved 5 May, 2019, from https://www.tutorialspoint.com
 
 W3schools (2019). Scheduling Algorithms of Operating System. Retrieved 12 May,
 2019, from https://www.w3schools.in
 
-GeeksforGeeks (2019). Program for Round Robin scheduling | Set 1. Retrieved 12
+Gatevidyalay.com (2019). Round Robin | Round Robin Scheduling | Examples.
+Retrieved 11 May, 2019, from https://www.gatevidyalay.com
+
+GeeksforGeeks (2019). Program for Round Robin scheduling | Set 1. Retrieved 3
 May, 2019, from https://www.geeksforgeeks.org
 
 GeeksforGeeks (2019). Round Robin Scheduling with different arrival times.
-Retrieved 12 May, 2019, from https://www.geeksforgeeks.org
+Retrieved 3 May, 2019, from https://www.geeksforgeeks.org
 
 \end{document}
