@@ -15,6 +15,7 @@ public class RoundRobinJava {
         System.out.print("Number of processes: ");
         int numberOfProcesses = sc.nextInt();
         System.out.print("Quantum: ");
+        // Currently works with quantum = 1, other values are buggy
         int quantum = sc.nextInt();
 
         // Creates an empty array of processes to be filled in later
